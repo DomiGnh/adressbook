@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>książka adresowa</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <section id="kontakt">
+      <h1>Książka adresowa</h1>
+      <table id="contacts-table">
+		<tr id="contacts-head">
+			<th>Imie</th>
+			<th>Nazwisko</th>
+			<th>telefon</th>
+			<th>adres</th>
+			<th>Actions</th>
+		</tr>
+	</table>
+     
+     <form id="contacts-form">
+		<div class="item text">
+			<label>Imie:</label>
+			<div class="field"><input type="text" name="first_name" /></div>
+		</div>
+		<div class="item text">
+			<label>Nazwisko:</label>
+			<div class="field"><input type="text" name="last_name" /></div>
+		</div>
+		<div class="item text">
+			<label>Telefon:</label>
+			<div class="field"><input type="text" name="email" /></div>
+		</div>
+		<div class="item text">
+			<label>Adres:</label>
+			<div class="field"><input type="text" name="email" /></div>
+		</div>
+		
+		<div class="button-wrapper">
+			<div class="item button">
+				<div class="field"><input type="button" id="contacts-op-discard" value="Discard" /></div>
+			</div>
+			<div class="item button button-default">
+				<div class="field"><input type="submit" id="contacts-op-save" value="Save" /></div>
+			</div>
+		</div>
+		<input type="hidden" name="id_entry" value="0" />
+	</form>
+      
+      
+      
+      
+      
+  </section> 
+
+    
+        
+    <script src="js/main.js"></script>    
+                    
+</body>
+</html>
