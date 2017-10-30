@@ -31,7 +31,7 @@ var addressBook = (function() {
     tbody.html('');
     var length = people.length;
     for (var i = 0; i < length; i++) {
-      table.prepend('<tr><td><input class="edit" type="text" value="' + people[i].firstName + '" ></td><td><input class="edit" type="text" value="' + people[i].lastName + '" ></td><td><input type="text" class="edit" value="' + people[i].phone + '" ></td><td><input type="text" class="edit" value="' + people[i].adress + '" ></td><td> <button id="remove" class="btn btn-block">X</button></td></tr>');
+      table.prepend('<tr><td><input class="edit" type="text" value="' + people[i].firstName + '" ></td><td><input class="edit" type="text" value="' + people[i].lastName + '" ></td><td><input type="text" class="edit" value="' + people[i].phone + '" ></td><td><input type="text" class="edit" value="' + people[i].adress + '" ></td><td> <button id="remove" class="btn btn-block">X</button></td><td> <button id="edit" class="btn btn-block">Edit</button></td></tr>');
     }
   }
 
@@ -51,12 +51,41 @@ var addressBook = (function() {
     _render()
   }
 
-  function deletePerson(event) {
+//  function deletePerson(event) {
+//      var element = event.target.closest('tr');
+//      var i = table.find('td').index(element);
+//      people.splice(i, 1);
+//      _render();
+//      
+//     
+//    }
+    
+     function deletePerson(event) {
       var element = event.target.closest('tr');
       var i = table.find('td').index(element);
       people.splice(i, 1);
       _render();
+      
+     
     }
+    
+    
+    
+    function oknoConfirm() {
+    if (remove('Czy jesteś pewien, że chcesz kontynuować?')) {
+        alert('No to kontynuuj...');
+    } else {
+        alert('Przykro mi, że nie chcesz kontynuować...');
+    }
+}
+
+document.getElementById('confirm').addEventListener('click', function() {
+    oknoConfirm()
+});
+    
+    
+    
+    
     /*
     function editPerson(event){
        var element=event.target.closest('tr');
@@ -69,8 +98,17 @@ var addressBook = (function() {
       phone: $phone.val()
       };
         _render();
-    }
+    }    
 */
+    
+    
+    
+    
+    
+    
+  
+    
+    
   return {
     addPerson: addPerson,
     deletePerson: deletePerson
