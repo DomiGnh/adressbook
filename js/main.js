@@ -1,9 +1,10 @@
 var addressBook = (function() {
     'use strict';
   var people = [{
-    firstName: 'Omran',
-    lastName: 'Abazid',
-    phone: '123456789'
+    firstName: 'Olaf',
+    lastName: 'Zimny',
+    phone: '55678999',
+      adress: 'Złota 9'
   }];
   //cash the dom
   var table = $('#table1');
@@ -11,6 +12,7 @@ var addressBook = (function() {
   var $firstName = table.find('#firstName');
   var $lastName = table.find('#lastName');
   var $phone = table.find('#phone');
+     var $adress = table.find('#adress');
   var $button = table.find('#add');
   var $btnSave = table.find('#save');
   var $btnEdit = table.find('#edit');
@@ -29,7 +31,7 @@ var addressBook = (function() {
     tbody.html('');
     var length = people.length;
     for (var i = 0; i < length; i++) {
-      table.prepend('<tr><td><input class="edit" type="text" value="' + people[i].firstName + '" ></td><td><input class="edit" type="text" value="' + people[i].lastName + '" ></td><td><input type="text" class="edit" value="' + people[i].phone + '" ></td><td> <button id="remove" class="btn btn-block">X</button></td></tr>');
+      table.prepend('<tr><td><input class="edit" type="text" value="' + people[i].firstName + '" ></td><td><input class="edit" type="text" value="' + people[i].lastName + '" ></td><td><input type="text" class="edit" value="' + people[i].phone + '" ></td><td><input type="text" class="edit" value="' + people[i].adress + '" ></td><td> <button id="remove" class="btn btn-block">X</button></td></tr>');
     }
   }
 
@@ -38,12 +40,14 @@ var addressBook = (function() {
     var person = {
       firstName: $firstName.val(),
       lastName: $lastName.val(),
-      phone: $phone.val()
+      phone: $phone.val(),
+      adress:$adress.val(),
     };
     people.push(person);
     $firstName.val('');
     $lastName.val('');
     $phone.val('');
+    $adress.val('');
     _render()
   }
 
