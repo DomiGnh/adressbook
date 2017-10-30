@@ -1,126 +1,75 @@
-var Contacts = {
+var addressBook = (function() {
     'use strict';
-			index: window.localStorage.getItem("Contacts:index"),
-			$table: document.getElementById("contacts-table"),
-			$form: document.getElementById("contacts-form"),
-			$button_save: document.getElementById("contacts-op-save"),
-			$button_discard: document.getElementById("contacts-op-discard"),
+  var people = [{
+    firstName: 'Omran',
+    lastName: 'Abazid',
+    phone: '123456789'
+  }];
+  //cash the dom
+  var table = $('#table1');
+  var tbody = table.find('tbody');
+  var $firstName = table.find('#firstName');
+  var $lastName = table.find('#lastName');
+  var $phone = table.find('#phone');
+  var $button = table.find('#add');
+  var $btnSave = table.find('#save');
+  var $btnEdit = table.find('#edit');
+  var $btnRemove = table.find('#remove');
+  var $input = table.find(".edit");
 
-			init: function() {
-				// initialize storage index
-				if (!Contacts.index) {
-					window.localStorage.setItem("Contacts:index", Contacts.index = 1);
-				}
+  //bind events
+  $button.on('click', addPerson);
+  table.on('click', '#remove', deletePerson);
+  /*table.on("change",'.edit' ,editPerson);*/
+  console.log($input);
+  _render();
 
-				// initialize form
-				Contacts.$form.reset();
-				Contacts.$button_discard.addEventListener("click", function(event) {
-					Contacts.$form.reset();
-					Contacts.$form.id_entry.value = 0;
-				}, true);
-				Contacts.$form.addEventListener("submit", function(event) {
-					var entry = {
-						id: parseInt(this.id_entry.value),
-						first_name: this.first_name.value,
-						last_name: this.last_name.value,
-						email: this.email.value
-					};
-					if (entry.id == 0) { // add
-						Contacts.storeAdd(entry);
-						Contacts.tableAdd(entry);
-					}
-					else { // edit
-						Contacts.storeEdit(entry);
-						Contacts.tableEdit(entry);
-					}
+  //render
+  function _render() {
+    tbody.html('');
+    var length = people.length;
+    for (var i = 0; i < length; i++) {
+      table.prepend('<tr><td><input class="edit" type="text" value="' + people[i].firstName + '" ></td><td><input class="edit" type="text" value="' + people[i].lastName + '" ></td><td><input type="text" class="edit" value="' + people[i].phone + '" ></td><td> <button id="remove" class="btn btn-block">X</button></td></tr>');
+    }
+  }
 
-					this.reset();
-					this.id_entry.value = 0;
-					event.preventDefault();
-				}, true);
+  //custom function
+  function addPerson() {
+    var person = {
+      firstName: $firstName.val(),
+      lastName: $lastName.val(),
+      phone: $phone.val()
+    };
+    people.push(person);
+    $firstName.val('');
+    $lastName.val('');
+    $phone.val('');
+    _render()
+  }
 
-				// initialize table
-				if (window.localStorage.length - 1) {
-					var contacts_list = [], i, key;
-					for (i = 0; i < window.localStorage.length; i++) {
-						key = window.localStorage.key(i);
-						if (/Contacts:\d+/.test(key)) {
-							contacts_list.push(JSON.parse(window.localStorage.getItem(key)));
-						}
-					}
+  function deletePerson(event) {
+      var element = event.target.closest('tr');
+      var i = table.find('td').index(element);
+      people.splice(i, 1);
+      _render();
+    }
+    /*
+    function editPerson(event){
+       var element=event.target.closest('tr');
+    	var i=table.find('tr').index(element);
+      var index = (table.find('tr').length -i)-1;
+      console.log(element.firstChild());
+      var person= {
+      firstName: ,
+      lastName: $lastName.val(),
+      phone: $phone.val()
+      };
+        _render();
+    }
+*/
+  return {
+    addPerson: addPerson,
+    deletePerson: deletePerson
+  };
 
-					if (contacts_list.length) {
-						contacts_list
-							.sort(function(a, b) {
-								return a.id < b.id ? -1 : (a.id > b.id ? 1 : 0);
-							})
-							.forEach(Contacts.tableAdd);
-					}
-				}
-				Contacts.$table.addEventListener("click", function(event) {
-					var op = event.target.getAttribute("data-op");
-					if (/edit|remove/.test(op)) {
-						var entry = JSON.parse(window.localStorage.getItem("Contacts:"+ event.target.getAttribute("data-id")));
-						if (op == "edit") {
-							Contacts.$form.first_name.value = entry.first_name;
-							Contacts.$form.last_name.value = entry.last_name;
-							Contacts.$form.email.value = entry.email;
-							Contacts.$form.id_entry.value = entry.id;
-						}
-						else if (op == "remove") {
-							if (confirm('Are you sure you want to remove "'+ entry.first_name +' '+ entry.last_name +'" from your contacts?')) {
-								Contacts.storeRemove(entry);
-								Contacts.tableRemove(entry);
-							}
-						}
-						event.preventDefault();
-					}
-				}, true);
-			},
-
-			storeAdd: function(entry) {
-				entry.id = Contacts.index;
-				window.localStorage.setItem("Contacts:index", ++Contacts.index);
-				window.localStorage.setItem("Contacts:"+ entry.id, JSON.stringify(entry));
-			},
-			storeEdit: function(entry) {
-				window.localStorage.setItem("Contacts:"+ entry.id, JSON.stringify(entry));
-			},
-			storeRemove: function(entry) {
-				window.localStorage.removeItem("Contacts:"+ entry.id);
-			},
-
-			tableAdd: function(entry) {
-				var $tr = document.createElement("tr"), $td, key;
-				for (key in entry) {
-					if (entry.hasOwnProperty(key)) {
-						$td = document.createElement("td");
-						$td.appendChild(document.createTextNode(entry[key]));
-						$tr.appendChild($td);
-					}
-				}
-				$td = document.createElement("td");
-				$td.innerHTML = '<a data-op="edit" data-id="'+ entry.id +'">Edit</a> | <a data-op="remove" data-id="'+ entry.id +'">Remove</a>';
-				$tr.appendChild($td);
-				$tr.setAttribute("id", "entry-"+ entry.id);
-				Contacts.$table.appendChild($tr);
-			},
-			tableEdit: function(entry) {
-				var $tr = document.getElementById("entry-"+ entry.id), $td, key;
-				$tr.innerHTML = "";
-				for (key in entry) {
-					if (entry.hasOwnProperty(key)) {
-						$td = document.createElement("td");
-						$td.appendChild(document.createTextNode(entry[key]));
-						$tr.appendChild($td);
-					}
-				}
-				$td = document.createElement("td");
-				$td.innerHTML = '<a data-op="edit" data-id="'+ entry.id +'">Edit</a> | <a data-op="remove" data-id="'+ entry.id +'">Remove</a>';
-				$tr.appendChild($td);
-			},
-			tableRemove: function(entry) {
-				Contacts.$table.removeChild(document.getElementById("entry-"+ entry.id));
-			}
-		};
-		Contacts.init();
+})();

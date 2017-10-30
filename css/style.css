@@ -1,73 +1,13 @@
-#contacts-table 
-{ border-collapse: collapse; }
 
-#contacts-table, #contacts-table th, #contacts-table td
-{ padding: 8px 16px;
-text-align: left; 
-border: 0px solid #B9BABE; }
 
-#contacts-table th 
-{ font-weight: bold; 
-  font-size: 14px; 
-  color: #29344B; }
 
-#contacts-table td 
-{ color: #000; }
 
-#contacts-table tr:nth-child(2n)
-{ background: #E8EDFF; }
-
-#contacts-form{
-    padding: 10px;
+input {
+    background:rgba(0,0,0,0);
+    border:none;
+  width: 100%;
+  height: 100%;
 }
-
-.text input, .button input { 
-    padding: 5px; 
-    margin: 0; 
-    border: 1px solid #ccc; 
-    -moz-border-radius: 2px; 
-    -webkit-border-radius: 2px; 
-    border-radius: 2px; }
-
-#contacts-form .item { 
-    margin: 3px 0; }
-
-#contacts-form label, #contacts-form .field { display: inline-block; 
-    color: #000; }
-
-
-#contacts-form label { 
-    width: 110px; 
-    font-weight: bold; 
-    text-align: right; 
-    color: #000; }
-
-
-
-#contacts-form .text input { 
-    width: 200px; 
-    padding: 3px; }
-
-#contacts-form .button { 
-    display: inline-block; }
-
-
-#contacts-form .button-wrapper { 
-    padding-left: 113px; }
-
-
-.button input { 
-    padding: 4px 8px; 
-    color: #fff; 
-    background-color: #1f3d7a; 
-   }
-
-.button-default input { 
-    font-weight: bold; 
-    color: #fff; 
-    background-color: #7ca0c7; 
-    }
-
 
 
 
