@@ -6,7 +6,7 @@ var addressBook = (function() {
     phone: '55678999',
       adress: 'Złota 9'
   }];
-  //cash the dom
+  
   var table = $('#table1');
   var tbody = table.find('tbody');
   var $firstName = table.find('#firstName');
@@ -19,23 +19,23 @@ var addressBook = (function() {
   var $btnRemove = table.find('#remove');
   var $input = table.find(".edit");
 
-  //bind events
+  
   $button.on('click', addPerson);
   table.on('click', '#remove', deletePerson);
-  /*table.on("change",'.edit' ,editPerson);*/
+  /*table.on("click",'.edit' ,editPerson);*/
   console.log($input);
   _render();
 
-  //render
+  
   function _render() {
     tbody.html('');
     var length = people.length;
     for (var i = 0; i < length; i++) {
-      table.prepend('<tr><td><input class="edit" type="text" value="' + people[i].firstName + '" ></td><td><input class="edit" type="text" value="' + people[i].lastName + '" ></td><td><input type="text" class="edit" value="' + people[i].phone + '" ></td><td><input type="text" class="edit" value="' + people[i].adress + '" ></td><td> <button id="remove" class="btn btn-block">X</button></td><td> <button id="edit" class="btn btn-block">Edit</button></td></tr>');
+      table.prepend('<tr><td><input class="edit" type="text" value="' + people[i].firstName + '" ></td><td><input class="edit" type="text" value="' + people[i].lastName + '" ></td><td><input type="text" class="edit" value="' + people[i].phone + '" ></td><td><input type="text" class="edit" value="' + people[i].adress + '" ></td><td> <button id="remove" class="btn btn-block">X</button></td></tr>');
     }
   }
 
-  //custom function
+  
   function addPerson() {
     var person = {
       firstName: $firstName.val(),
@@ -71,18 +71,17 @@ var addressBook = (function() {
     
     
     
-    function oknoConfirm() {
-    if (remove('Czy jesteś pewien, że chcesz kontynuować?')) {
-        alert('No to kontynuuj...');
-    } else {
-        alert('Przykro mi, że nie chcesz kontynuować...');
-    }
-}
-
-document.getElementById('confirm').addEventListener('click', function() {
-    oknoConfirm()
-});
-    
+//    function oknoConfirm() {
+//    if (remove('Czy jesteś pewien, że chcesz sunąc?')) {
+//        alert('ok...');
+//    } else {
+//       
+//};
+//
+//document.getElementById('confirm').addEventListener('click', function() {
+//    oknoConfirm()
+//});
+//    
     
     
     

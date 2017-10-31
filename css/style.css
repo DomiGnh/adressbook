@@ -1,20 +1,38 @@
+body{
+    background-color:grey;
+}
 
-
-
+header > h1{
+    color: #fff;
+}
 
 input {
     background:rgba(0,0,0,0);
-    border:1px solid #000;
+    border:none;
   width: 100%;
   height: 100%;
-   
+}
+
+table{
+    background-color: #fff;
 }
 
 
+#add{
+    background-color: cornflowerblue;
+    color: #fff;
+}
 
 
+#remove{
+    background-color: #FF3333;
+    color: #fff;
+}
 
-
+#edit{
+    background-color: #00CC66;
+    color: #fff;
+}
 
 
 
